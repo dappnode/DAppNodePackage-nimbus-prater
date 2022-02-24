@@ -1,0 +1,15 @@
+{
+  "name": "nimbus-prater.dnp.dappnode.eth",
+  "upstreamVersion": "v1.7.0",
+  "architectures": ["linux/amd64"],
+  "upstreamRepo": "status-im/nimbus-eth2",
+  "version": "0.1.0",
+  "description": "nimbus-prater.public.dappnode.eth description",
+  "type": "service",
+  "author": "pablo",
+  "categories": ["Developer tools"],
+  "links": {
+    "homepage": "https://your-project-homepage-or-docs.io"
+  },
+  "license": "GLP-3.0"
+}
