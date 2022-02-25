@@ -11,7 +11,7 @@ INFO="[ INFO-cronjob ]"
 DEBUG="[ DEBUG-cronjob ]"
 
 # This var must be set here and must be equal to the var defined in the compose file
-PUBLIC_KEYS_FILE="/opt/teku/public-keys/public_keys.txt"
+PUBLIC_KEYS_FILE="/home/usr/nimbus-eth2/build/public-keys/public_keys.txt"
 HTTP_WEB3SIGNER="http://web3signer.web3signer-prater.dappnode:9000"
 
 # Get public keys in format: string[]
