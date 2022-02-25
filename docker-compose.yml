@@ -3,6 +3,8 @@ services:
   nimbus_beacon_node:
     build:
       context: ./build
+      args:
+        UPSTREAM_VERSION: v1.7.0
     restart: unless-stopped
     stop_grace_period: 1m
     environment:
@@ -15,13 +17,10 @@ services:
     ports:
       - 9000/tcp
       - 9000/udp
-      - 127.0.0.1:9190:9190/tcp
-      - 8008:8008/tcp
-      - 5052:5052
     volumes:
       - "nimbus-prater-data:/home/user/nimbus-eth2/build/data"
       - "nimbus-prater-keys:/home/usr/nimbus-eth2/build/public-keys"
-
+    image: "nimbus_beacon_node.nimbus-prater.dnp.dappnode.eth:0.1.0"
 volumes:
   nimbus-prater-data: {}
   nimbus-prater-keys: {}
