@@ -11,5 +11,12 @@
   "links": {
     "homepage": "https://your-project-homepage-or-docs.io"
   },
-  "license": "GLP-3.0"
+  "license": "GLP-3.0",
+  "requirements": {
+    "minimumDappnodeVersion": "0.2.52"
+  },
+  "dependencies": {
+    "web3signer-prater.dnp.dappnode.eth": "latest",
+    "goerli-geth.dnp.dappnode.eth": "latest"
+  }
 }
