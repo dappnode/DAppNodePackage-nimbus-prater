@@ -34,16 +34,16 @@ function ensure_envs_exist() {
 #     }]
 # }
 function get_public_keys() {
-    if PUBLIC_KEYS=$(curl -s -X GET \
+    if PUBLIC_KEYS_API=$(curl -s -X GET \
     -H "Content-Type: application/json" \
     --max-time 10 \
     --retry 2 \
     --retry-delay 2 \
     --retry-max-time 40 \
     "${HTTP_WEB3SIGNER}/eth/v1/keystores"); then
-        if PUBLIC_KEYS_PARSED=$(echo ${PUBLIC_KEYS} | jq -r '.data[].validating_pubkey'); then
-            if [ ! -z "$PUBLIC_KEYS_PARSED" ]; then
-                echo "${INFO} found public keys: $PUBLIC_KEYS_PARSED"
+        if PUBLIC_KEYS_API=($(echo ${PUBLIC_KEYS_API} | jq -r '.data[].validating_pubkey')); then
+            if [ ! -z "$PUBLIC_KEYS_API" ]; then
+                echo "${INFO} found public keys: $PUBLIC_KEYS_API"
             else
                 echo "${WARN} no public keys found"
             fi
@@ -64,7 +64,7 @@ function write_public_keys() {
     touch ${PUBLIC_KEYS_FILE}
 
     echo "${INFO} writing public keys to file"
-    for PUBLIC_KEY in ${PUBLIC_KEYS_PARSED}; do
+    for PUBLIC_KEY in ${PUBLIC_KEYS_API}; do
         if [ ! -z "${PUBLIC_KEY}" ]; then
             echo "${INFO} adding public key: $PUBLIC_KEY"
             echo "${PUBLIC_KEY}" >> ${PUBLIC_KEYS_FILE}
@@ -84,7 +84,7 @@ ensure_envs_exist
 # Get public keys from API keymanager
 get_public_keys
 
-if [ ! -z "${PUBLIC_KEYS_PARSED}" ]; then
+if [ ! -z "${PUBLIC_KEYS_API}" ]; then
     # Write public keys to file
     echo "${INFO} writing public keys file"
     write_public_keys
