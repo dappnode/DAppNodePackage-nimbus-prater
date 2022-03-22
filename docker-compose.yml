@@ -1,26 +1,37 @@
 version: "3.6"
 services:
-  nimbus_beacon_node:
+  validator:
     build:
-      context: ./build
+      context: ./validator
+      dockerfile: Dockerfile.dev
       args:
-        UPSTREAM_VERSION: v1.7.0
+        UPSTREAM_VERSION: 22.3.0
+    environment:
+      VALIDATORS_FILE: "" # TODO
+      PASSWORDS_FILE: "" # TODO
+      BEACON_NODE_ADDR: "http://beacon-chain.nimbus-prater.dappnode:3500"
+      PUBLIC_KEYS_FILE: /public_keys.txt
+      GRAFFITI: validating_from_DAppNode
+      SUPERVISOR_CONF: /etc/supervisor/conf.d/supervisord.conf
+      EXTRA_OPTS: ""
+    restart: unless-stopped
+  beacon-chain:
+    build:
+      context: ./beacon-chain
+      dockerfile: Dockerfile
+      args:
+        UPSTREAM_VERSION: 22.3.0
     restart: unless-stopped
     stop_grace_period: 1m
     environment:
       BEACON_API_PORT: 3500
       HTTP_WEB3PROVIDER: "http://goerli-geth.dappnode:8545"
       HTTP_WEB3SIGNER: "http://web3signer.web3signer-prater.dappnode:9000"
-      PUBLIC_KEYS_FILE: /home/usr/nimbus-eth2/build/public-keys/public_keys.txt
-      INITIAL_STATE: ""
       EXTRA_OPTS: ""
     ports:
       - 9000/tcp
       - 9000/udp
     volumes:
       - "nimbus-prater-data:/home/user/nimbus-eth2/build/data"
-      - "nimbus-prater-keys:/home/usr/nimbus-eth2/build/public-keys"
-    image: "nimbus_beacon_node.nimbus-prater.dnp.dappnode.eth:0.1.0"
 volumes:
   nimbus-prater-data: {}
-  nimbus-prater-keys: {}

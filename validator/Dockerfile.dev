@@ -1,0 +1,37 @@
+ARG UPSTREAM_VERSION
+
+###########
+# Builder #
+###########
+
+FROM debian:bullseye-slim as builder
+
+RUN apt update && apt install gcc make --yes
+
+WORKDIR /usr/src/app
+RUN git clone https://github.com/status-im/nimbus-eth2.git
+
+WORKDIR /usr/src/app/nimbus-eth2
+RUN make nimbus_validator_client 
+# make -j8 prater
+
+##########
+# Runner #
+##########
+
+FROM debian:bullseye-slim
+
+RUN apt update && apt install curl jq cron supervisor --yes
+COPY --from=builder /usr/src/app/nimbus-eth2/build/nimbus_validator_client /usr/local/bin
+
+# Setup cronjob
+COPY get-keys-cron /etc/cron.d/
+COPY get-keys.sh /usr/local/bin/get-keys.sh
+# Apply cron job
+RUN crontab /etc/cron.d/get-keys-cron
+
+# supervisor
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY entrypoint.sh /usr/bin/entrypoint.sh
+
+ENTRYPOINT [ "entrypoint.sh" ]

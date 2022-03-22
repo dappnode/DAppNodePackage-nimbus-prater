@@ -1,28 +1,24 @@
 {
   "name": "nimbus-prater.dnp.dappnode.eth",
   "version": "0.1.0",
-  "upstreamVersion": "v1.7.0",
+  "upstreamVersion": "22.3.0",
   "upstreamRepo": "status-im/nimbus-eth2",
   "upstreamArg": "UPSTREAM_VERSION",
   "architectures": ["linux/amd64"],
   "shortDescription": "Nimbus prater ETH2.0 Beacon chain + validator",
-  "description": "nimbus-prater.public.dappnode.eth description",
+  "description": "Nimbus-eth2 is an extremely efficient consensus layer (eth2) client implementation",
   "type": "service",
   "author": "DAppNode Association <admin@dappnode.io> (https://github.com/dappnode)",
   "contributors": [
     "pablo <pablo@dappnode.io> (https://github.com/pablomendezroyo)",
     "marce <mgarciate@dappnode.io> (https://github.com/mgarciate)"
   ],
-  "license": "GPL-3.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dappnode/DAppNodePackage-nimbus-prater.git"
   },
   "bugs": {
     "url": "https://github.com/dappnode/DAppNodePackage-nimbus-prater/issues"
-  },
-  "requirements": {
-    "minimumDappnodeVersion": "0.2.51"
   },
   "categories": ["Blockchain", "ETH2.0"],
   "links": {
