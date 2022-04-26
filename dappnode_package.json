@@ -1,7 +1,7 @@
 {
   "name": "nimbus-prater.dnp.dappnode.eth",
   "version": "0.1.0",
-  "upstreamVersion": "v1.7.0",
+  "upstreamVersion": "v22.4.0",
   "upstreamRepo": "status-im/nimbus-eth2",
   "upstreamArg": "UPSTREAM_VERSION",
   "architectures": ["linux/amd64"],
@@ -31,9 +31,10 @@
     "readme": "https://github.com/dappnode/DAppNodePackage-nimbus-prater",
     "docs": "https://www.nimbusproject.org/docs"
   },
-  "license": "GLP-3.0",
-  "requirements": {
-    "minimumDappnodeVersion": "0.2.52"
+  "chain": {
+    "driver": "ethereum-beacon-chain",
+    "serviceName": "beacon-validator",
+    "portNumber": 4500
   },
   "dependencies": {
     "web3signer-prater.dnp.dappnode.eth": "latest",
