@@ -30,7 +30,7 @@ else
 
             echo "creating keystore for pubkey: ${PUBLIC_KEY}"
             mkdir -p validators/${PUBLIC_KEY}
-            echo "{\"version\":\"1\",\"description\":\"This is simple remote keystore file\",\"type\":\"web3signer\",\"pubkey\":\"${PUBLIC_KEY}\",\"remote\":\"${WEB3SIGNER_API}\",\"ignore_ssl_verification\":true}" >validators/${PUBLIC_KEY}/remote_keystore.json
+            echo "{\"version\":\"1\",\"description\":\"This is simple remote keystore file\",\"type\":\"web3signer\",\"pubkey\":\"${PUBLIC_KEY}\",\"remote\":\"${WEB3SIGNER_API}\",\"ignore_ssl_verification\":true}" >/home/user/nimbus-eth2/build/data/validators/${PUBLIC_KEY}/remote_keystore.json
         done
     fi
 fi
