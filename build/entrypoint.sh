@@ -13,7 +13,7 @@ if [ "$HTTP_CODE" != "200" ]; then
 else
     PUBLIC_KEYS_WEB3SIGNER=($(echo "${CONTENT}" | jq -r 'try .data[].validating_pubkey'))
     if [ ${#PUBLIC_KEYS_WEB3SIGNER[@]} -gt 0 ]; then
-        echo "found validators in web3signer, starting vc with pubkeys: ${PUBLIC_KEIES_WEB3SIGNER[*]}"
+        echo "found validators in web3signer, starting vc with pubkeys: ${PUBLIC_KEYS_WEB3SIGNER[*]}"
         for PUBLIC_KEY in "${PUBLIC_KEYS_WEB3SIGNER[@]}"; do
             # Docs: https://github.com/status-im/nimbus-eth2/pull/3077#issue-1049195359
             # create a keystore file with the following format
@@ -28,7 +28,7 @@ else
 
             echo "creating keystore for pubkey: ${PUBLIC_KEY}"
             mkdir -p validators/${PUBLIC_KEY}
-            echo "{\"version\":\"1\",\"description\":\"This is simple remote keystore file\",\"type\":\"web3signer\",\"pubkey\":\"${PUBLIC_KEY}\",\"remote\":\"${WEB3SIGNER_API}\",\"ignore_ssl_verification\":true}" > validators/${PUBLIC_KEY}/remote_keystore.json
+            echo "{\"version\":\"1\",\"description\":\"This is simple remote keystore file\",\"type\":\"web3signer\",\"pubkey\":\"${PUBLIC_KEY}\",\"remote\":\"${WEB3SIGNER_API}\",\"ignore_ssl_verification\":true}" >validators/${PUBLIC_KEY}/remote_keystore.json
         done
     fi
 fi
