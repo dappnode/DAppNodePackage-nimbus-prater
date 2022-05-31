@@ -30,7 +30,7 @@ else
 
             echo "creating keystore for pubkey: ${PUBLIC_KEY}"
             mkdir -p validators/${PUBLIC_KEY}
-            echo "{\"version\":\"1\",\"description\":\"This is simple remote keystore file\",\"type\":\"web3signer\",\"pubkey\":\"${PUBLIC_KEY}\",\"remote\":\"${WEB3SIGNER_API}\",\"ignore_ssl_verification\":true}" >/home/user/nimbus-eth2/build/data/validators/${PUBLIC_KEY}/remote_keystore.json
+            echo "{\"version\": 1,\"description\":\"This is simple remote keystore file\",\"type\":\"web3signer\",\"pubkey\":\"${PUBLIC_KEY}\",\"remote\":\"${WEB3SIGNER_API}\",\"ignore_ssl_verification\":true}" >/home/user/nimbus-eth2/build/data/validators/${PUBLIC_KEY}/remote_keystore.json
         done
     fi
 fi
@@ -47,6 +47,7 @@ fi
 exec -c /home/user/nimbus-eth2/build/nimbus_beacon_node \
     --network=${NETWORK} \
     --data-dir=/home/user/nimbus-eth2/build/data \
+    --validators-dir=/home/user/nimbus-eth2/build/data/validators \
     --log-level=info \
     --rest \
     --rest-port=4500 \
