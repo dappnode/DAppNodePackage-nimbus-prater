@@ -5,6 +5,13 @@ NETWORK="prater"
 VALIDATOR_PORT=3500
 WEB3SIGNER_API="http://web3signer.web3signer-${NETWORK}.dappnode:9000"
 
+DATA_DIR="/home/user/nimbus-eth2/build/data"
+VALIDATORS_DIR="${DATA_DIR}/validators"
+TOKEN_FILE="${DATA_DIR}/auth-token"
+
+# Create validators dir
+mkdir -p ${VALIDATORS_DIR}
+
 WEB3SIGNER_RESPONSE=$(curl -s -w "%{http_code}" -X GET -H "Content-Type: application/json" -H "Host: beacon-validator.${CLIENT}-${NETWORK}.dappnode" "${WEB3SIGNER_API}/eth/v1/keystores")
 HTTP_CODE=${WEB3SIGNER_RESPONSE: -3}
 CONTENT=$(echo "${WEB3SIGNER_RESPONSE}" | head -c-4)
@@ -29,7 +36,7 @@ else
             # }
 
             echo "creating keystore for pubkey: ${PUBLIC_KEY}"
-            mkdir -p validators/${PUBLIC_KEY}
+            mkdir -p "${VALIDATORS_DIR}"/"${PUBLIC_KEY}"
             echo "{\"version\": 1,\"description\":\"This is simple remote keystore file\",\"type\":\"web3signer\",\"pubkey\":\"${PUBLIC_KEY}\",\"remote\":\"${WEB3SIGNER_API}\",\"ignore_ssl_verification\":true}" >/home/user/nimbus-eth2/build/data/validators/${PUBLIC_KEY}/remote_keystore.json
         done
     fi
@@ -46,8 +53,8 @@ fi
 
 exec -c /home/user/nimbus-eth2/build/nimbus_beacon_node \
     --network=${NETWORK} \
-    --data-dir=/home/user/nimbus-eth2/build/data \
-    --validators-dir=/home/user/nimbus-eth2/build/data/validators \
+    --data-dir=${DATA_DIR} \
+    --validators-dir=${VALIDATORS_DIR} \
     --log-level=info \
     --rest \
     --rest-port=4500 \
@@ -58,6 +65,6 @@ exec -c /home/user/nimbus-eth2/build/nimbus_beacon_node \
     --keymanager \
     --keymanager-port=${VALIDATOR_PORT} \
     --keymanager-address=0.0.0.0 \
-    --keymanager-token-file=/home/user/nimbus-eth2/build/data/auth-token \
+    --keymanager-token-file=${TOKEN_FILE} \
     --graffiti=\"$GRAFFITI\" \
     $EXTRA_OPTS
