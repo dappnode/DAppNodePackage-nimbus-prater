@@ -66,6 +66,6 @@ exec -c /home/user/nimbus-eth2/build/nimbus_beacon_node \
     --keymanager-port=${VALIDATOR_PORT} \
     --keymanager-address=0.0.0.0 \
     --keymanager-token-file=${TOKEN_FILE} \
-    --graffiti=\"$GRAFFITI\" \
+    --graffiti="$GRAFFITI" \
     --suggested-fee-recipient="${FEE_RECIPIENT_ADDRESS}" \
     $EXTRA_OPTS
