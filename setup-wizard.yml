@@ -13,7 +13,7 @@ fields:
     target:
       type: environment
       name: HTTP_ENGINE
-      service: beacon-chain
+      service: beacon-validator
     title: Execution Client endpoint
     required: true
     description: >-
