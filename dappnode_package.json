@@ -37,7 +37,6 @@
     "portNumber": 4500
   },
   "dependencies": {
-    "web3signer-prater.dnp.dappnode.eth": "latest",
-    "goerli-geth.dnp.dappnode.eth": "latest"
+    "web3signer-prater.dnp.dappnode.eth": "latest"
   }
 }
