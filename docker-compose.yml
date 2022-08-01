@@ -9,7 +9,7 @@ services:
     stop_grace_period: 1m
     environment:
       LOG_TYPE: INFO
-      HTTP_WEB3PROVIDER: "http://goerli-geth.dappnode:8545"
+      HTTP_ENGINE: "http://goerli-geth.dappnode:8551"
       GRAFFITI: validating_from_DAppNode
       P2P_TCP_PORT: 9506
       P2P_UDP_PORT: 9506
