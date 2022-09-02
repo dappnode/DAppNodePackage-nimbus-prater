@@ -58,7 +58,10 @@ case $_DAPPNODE_GLOBAL_EXECUTION_CLIENT_PRATER in
     ;;
 esac
 
-# TODO: mevboost variable
+if [ -n "$_DAPPNODE_GLOBAL_MEVBOOST_PRATER" ] && [ "$_DAPPNODE_GLOBAL_MEVBOOST_PRATER" == "true" ]; then
+    echo "MEVBOOST is enabled but not available yet in nimbus"
+    curl -X POST -G 'http://my.dappnode/notification-send' --data-urlencode 'type=danger' --data-urlencode title="Mevboost not available" --data-urlencode 'body=Mevboost is not available for Nimbus yet'
+fi
 
 # Run checkpoint sync script if provided
 [[ -n $CHECKPOINT_SYNC_URL ]] &&
