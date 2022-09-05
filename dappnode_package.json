@@ -36,7 +36,5 @@
     "serviceName": "beacon-validator",
     "portNumber": 4500
   },
-  "dependencies": {
-    "web3signer-prater.dnp.dappnode.eth": "latest"
-  }
+  "globalEnvs": [{ "envs": ["EXECUTION_CLIENT_PRATER", "MEVBOOST_PRATER"], "services": ["beacon-validator"] }]
 }

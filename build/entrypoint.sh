@@ -42,6 +42,27 @@ else
     fi
 fi
 
+case $_DAPPNODE_GLOBAL_EXECUTION_CLIENT_PRATER in
+"goerli-geth.dnp.dappnode.eth")
+    HTTP_ENGINE="http://goerli-geth.dappnode:8551"
+    ;;
+"goerli-nethermind.dnp.dappnode.eth")
+    HTTP_ENGINE="http://goerli-nethermind.dappnode:8551"
+    ;;
+"goerli-erigon.dnp.dappnode.eth")
+    HTTP_ENGINE="http://goerli-erigon.dappnode:8551"
+    ;;
+*)
+    echo "Unknown value for _DAPPNODE_GLOBAL_EXECUTION_CLIENT_PRATER: $_DAPPNODE_GLOBAL_EXECUTION_CLIENT_PRATER"
+    HTTP_ENGINE=$_DAPPNODE_GLOBAL_EXECUTION_CLIENT_PRATER
+    ;;
+esac
+
+if [ -n "$_DAPPNODE_GLOBAL_MEVBOOST_PRATER" ] && [ "$_DAPPNODE_GLOBAL_MEVBOOST_PRATER" == "true" ]; then
+    echo "MEVBOOST is enabled but not available yet in nimbus"
+    curl -X POST -G 'http://my.dappnode/notification-send' --data-urlencode 'type=danger' --data-urlencode title="Mevboost not available" --data-urlencode 'body=Mevboost is not available for Nimbus yet'
+fi
+
 # Run checkpoint sync script if provided
 [[ -n $CHECKPOINT_SYNC_URL ]] &&
     /home/user/nimbus-eth2/build/nimbus_beacon_node trustedNodeSync \
