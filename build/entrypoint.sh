@@ -1,9 +1,7 @@
 #!/bin/bash
 
-CLIENT="nimbus"
 NETWORK="prater"
 VALIDATOR_PORT=3500
-WEB3SIGNER_API="http://web3signer.web3signer-${NETWORK}.dappnode:9000"
 
 DATA_DIR="/home/user/nimbus-eth2/build/data"
 VALIDATORS_DIR="${DATA_DIR}/validators"
@@ -11,36 +9,6 @@ TOKEN_FILE="${DATA_DIR}/auth-token"
 
 # Create validators dir
 mkdir -p ${VALIDATORS_DIR}
-
-WEB3SIGNER_RESPONSE=$(curl -s -w "%{http_code}" -X GET -H "Content-Type: application/json" -H "Host: beacon-validator.${CLIENT}-${NETWORK}.dappnode" "${WEB3SIGNER_API}/eth/v1/keystores")
-HTTP_CODE=${WEB3SIGNER_RESPONSE: -3}
-CONTENT=$(echo "${WEB3SIGNER_RESPONSE}" | head -c-4)
-if [ "${HTTP_CODE}" == "403" ] && [ "${CONTENT}" == "*Host not authorized*" ]; then
-    echo "${CLIENT} is not authorized to access the Web3Signer API. Start without pubkeys"
-elif [ "$HTTP_CODE" != "200" ]; then
-    echo "Failed to get keystores from web3signer, HTTP code: ${HTTP_CODE}, content: ${CONTENT}"
-else
-    PUBLIC_KEYS_WEB3SIGNER=($(echo "${CONTENT}" | jq -r 'try .data[].validating_pubkey'))
-    if [ ${#PUBLIC_KEYS_WEB3SIGNER[@]} -gt 0 ]; then
-        echo "found validators in web3signer, starting vc with pubkeys: ${PUBLIC_KEYS_WEB3SIGNER[*]}"
-        for PUBLIC_KEY in "${PUBLIC_KEYS_WEB3SIGNER[@]}"; do
-            # Docs: https://github.com/status-im/nimbus-eth2/pull/3077#issue-1049195359
-            # create a keystore file with the following format
-            # {
-            # "version": "1",
-            # "description": "This is simple remote keystore file",
-            # "type": "web3signer",
-            # "pubkey": "0x8107ff6a5cfd1993f0dc19a6a9ec7dc742a528dd6f2e3e10189a4a6fc489ae6c7ba9070ea4e2e328f0d20b91cc129733",
-            # "remote": "http://127.0.0.1:15052",
-            # "ignore_ssl_verification": true
-            # }
-
-            echo "creating keystore for pubkey: ${PUBLIC_KEY}"
-            mkdir -p "${VALIDATORS_DIR}"/"${PUBLIC_KEY}"
-            echo "{\"version\": 1,\"description\":\"This is simple remote keystore file\",\"type\":\"web3signer\",\"pubkey\":\"${PUBLIC_KEY}\",\"remote\":\"${WEB3SIGNER_API}\",\"ignore_ssl_verification\":true}" >/home/user/nimbus-eth2/build/data/validators/${PUBLIC_KEY}/remote_keystore.json
-        done
-    fi
-fi
 
 case $_DAPPNODE_GLOBAL_EXECUTION_CLIENT_PRATER in
 "goerli-geth.dnp.dappnode.eth")
