@@ -27,8 +27,14 @@ case $_DAPPNODE_GLOBAL_EXECUTION_CLIENT_PRATER in
 esac
 
 if [ -n "$_DAPPNODE_GLOBAL_MEVBOOST_PRATER" ] && [ "$_DAPPNODE_GLOBAL_MEVBOOST_PRATER" == "true" ]; then
-    echo "MEVBOOST is enabled but not available yet in nimbus"
-    curl -X POST -G 'http://my.dappnode/notification-send' --data-urlencode 'type=danger' --data-urlencode title="Mevboost not available" --data-urlencode 'body=Mevboost is not available for Nimbus yet'
+    echo "MEVBOOST is enabled"
+    MEVBOOST_URL="http://mev-boost.mev-boost-goerli.dappnode:18550"
+    if curl --retry 5 --retry-delay 5 --retry-all-errors "${MEVBOOST_URL}"; then
+        EXTRA_OPTS="${EXTRA_OPTS} --payload-builder=true --payload-builder-url=${MEVBOOST_URL}"
+    else
+        echo "MEVBOOST is enabled but ${MEVBOOST_URL} is not reachable"
+        curl -X POST -G 'http://my.dappnode/notification-send' --data-urlencode 'type=danger' --data-urlencode title="${MEVBOOST_URL} is not available" --data-urlencode 'body=Make sure the mevboost is available and running'
+    fi
 fi
 
 # Run checkpoint sync script if provided
