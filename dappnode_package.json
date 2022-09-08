@@ -1,7 +1,7 @@
 {
   "name": "nimbus-prater.dnp.dappnode.eth",
   "version": "0.1.0",
-  "upstreamVersion": "v22.8.0",
+  "upstreamVersion": "v22.9.0",
   "upstreamRepo": "status-im/nimbus-eth2",
   "upstreamArg": "UPSTREAM_VERSION",
   "architectures": ["linux/amd64"],
@@ -36,5 +36,10 @@
     "serviceName": "beacon-validator",
     "portNumber": 4500
   },
-  "globalEnvs": [{ "envs": ["EXECUTION_CLIENT_PRATER", "MEVBOOST_PRATER"], "services": ["beacon-validator"] }]
+  "globalEnvs": [
+    {
+      "envs": ["EXECUTION_CLIENT_PRATER", "MEVBOOST_PRATER"],
+      "services": ["beacon-validator"]
+    }
+  ]
 }
