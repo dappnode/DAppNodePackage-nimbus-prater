@@ -5,8 +5,8 @@
   "upstreamRepo": "status-im/nimbus-eth2",
   "upstreamArg": "UPSTREAM_VERSION",
   "architectures": ["linux/amd64"],
-  "shortDescription": "Nimbus prater ETH2.0 Beacon chain + validator",
-  "description": "nimbus-prater.dnp.dappnode.eth description",
+  "shortDescription": "Nimbus Prater Beacon chain + validator",
+  "description": "Nimbus implementation of the Beacon Chain client + validator for the Prater testnet",
   "type": "service",
   "author": "DAppNode Association <admin@dappnode.io> (https://github.com/dappnode)",
   "contributors": [
