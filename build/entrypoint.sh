@@ -48,14 +48,14 @@ fi
         --backfill=false \
         --data-dir=//home/user/nimbus-eth2/build/data
 [[ -n $WEB3_BACKUP_URL ]] && EXTRA_OPTS="--web3-url=${WEB3_BACKUP_URL} ${EXTRA_OPTS}"
-
-exec -c /home/user/nimbus-eth2/build/nimbus_beacon_node \
+ls /home/user/nimbus-eth2/build/
+exec -c /home/user/nimbus_beacon_node \
     --network=${NETWORK} \
     --data-dir=${DATA_DIR} \
     --tcp-port=$P2P_TCP_PORT \
     --udp-port=$P2P_UDP_PORT \
     --validators-dir=${VALIDATORS_DIR} \
-    --log-level=info \
+    --log-level=${LOG_TYPE}\
     --rest \
     --rest-port=4500 \
     --rest-address=0.0.0.0 \
