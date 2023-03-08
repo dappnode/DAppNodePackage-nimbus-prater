@@ -15,7 +15,6 @@ services:
       WEB3_BACKUP: ""
       CHECKPOINT_SYNC_URL: ""
       EXTRA_OPTS: ""
-      FEE_RECIPIENT_ADDRESS: ""
     ports:
       - "9506:9506/tcp"
       - "9506:9506/udp"
