@@ -22,7 +22,7 @@
     "url": "https://github.com/dappnode/DAppNodePackage-nimbus-prater/issues"
   },
   "requirements": {
-    "minimumDappnodeVersion": "0.2.58"
+    "minimumDappnodeVersion": "0.2.68"
   },
   "categories": ["Blockchain", "ETH2.0"],
   "links": {
@@ -38,7 +38,11 @@
   },
   "globalEnvs": [
     {
-      "envs": ["EXECUTION_CLIENT_PRATER", "MEVBOOST_PRATER"],
+      "envs": [
+        "EXECUTION_CLIENT_PRATER",
+        "MEVBOOST_PRATER",
+        "FEE_RECIPIENT_PRATER"
+      ],
       "services": ["beacon-validator"]
     }
   ]
