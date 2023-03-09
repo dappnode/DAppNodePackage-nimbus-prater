@@ -40,6 +40,12 @@ if [ -n "$_DAPPNODE_GLOBAL_MEVBOOST_PRATER" ] && [ "$_DAPPNODE_GLOBAL_MEVBOOST_P
     fi
 fi
 
+#Handle Graffiti Character Limit
+oLang=$LANG oLcAll=$LC_ALL
+LANG=C LC_ALL=C 
+graffitiString=${GRAFFITI:0:32}
+LANG=$oLang LC_ALL=$oLcAll
+
 # Run checkpoint sync script if provided
 [[ -n $CHECKPOINT_SYNC_URL ]] &&
     /home/user/nimbus-eth2/build/nimbus_beacon_node trustedNodeSync \
@@ -66,7 +72,7 @@ exec -c /home/user/nimbus_beacon_node \
     --keymanager-port=${VALIDATOR_PORT} \
     --keymanager-address=0.0.0.0 \
     --keymanager-token-file=${TOKEN_FILE} \
-    --graffiti="$GRAFFITI" \
+    --graffiti="${graffitiString}" \
     --jwt-secret=/jwtsecret \
     --web3-url=$HTTP_ENGINE \
     --suggested-fee-recipient="${FEE_RECIPIENT_ADDRESS}" \
