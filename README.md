@@ -1,4 +1,4 @@
-# Nimbus DAppNode package (prater config)
+# Nimbus Prater DAppNode Package
 
 **Nimbus prater ETH2.0 Beacon chain + validator**
 
