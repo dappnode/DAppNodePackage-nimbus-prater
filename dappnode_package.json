@@ -1,7 +1,7 @@
 {
   "name": "nimbus-prater.dnp.dappnode.eth",
   "version": "0.1.19",
-  "upstreamVersion": "v23.7.0",
+  "upstreamVersion": "v23.8.0",
   "upstreamRepo": "status-im/nimbus-eth2",
   "upstreamArg": "UPSTREAM_VERSION",
   "architectures": ["linux/amd64"],
